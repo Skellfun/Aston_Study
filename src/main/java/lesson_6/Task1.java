@@ -6,16 +6,19 @@ public class Task1 {
 
     public static void main(String[] args) {
         try{
-            auth("asdasd", "asd1asdas", "asd");
+            System.out.println(auth("asdasd", "asd3aSdas", "asd"));
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
     }
     private static boolean auth(String login, String password, String confirmPassword) throws WrongLoginException, WrongPasswordException {
-        if(login.length() >= 20) {
+        if(login == null || password == null || confirmPassword == null) {
+            throw new WrongLoginException("Login or password can't be empty!");
+        }
+        if(!login.matches("^(?!.* ).{1,19}$")) {
             throw new WrongLoginException();
         }
-        if(password.length() >= 20 || !password.matches("^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,20}$") || !password.equals(confirmPassword)){
+        if(!password.matches("^(?!.* )(?=.*\\d).{1,19}$") || !password.equals(confirmPassword)){
             throw new WrongPasswordException();
         }
 
